@@ -19,11 +19,11 @@
         <itemPath>../../../../../../framework/usb/inc/usb_hal_pic16f1.h</itemPath>
         <itemPath>../../../../../../framework/usb/inc/usb_device_hid.h</itemPath>
       </logicalFolder>
-      <itemPath>../demo_src/app_led_usb_status.h</itemPath>
       <itemPath>./system.h</itemPath>
       <itemPath>./fixed_address_memory.h</itemPath>
       <itemPath>io_mapping.h</itemPath>
-      <itemPath>../demo_src/app_device_keyboard.h</itemPath>
+      <itemPath>app_device_keyboard.h</itemPath>
+      <itemPath>app_led_usb_status.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -42,10 +42,10 @@
         <itemPath>../../../../../../framework/usb/src/usb_device_hid.c</itemPath>
         <itemPath>../demo_src/usb_events.c</itemPath>
       </logicalFolder>
-      <itemPath>../demo_src/app_led_usb_status.c</itemPath>
-      <itemPath>../demo_src/main.c</itemPath>
       <itemPath>system.c</itemPath>
-      <itemPath>../demo_src/app_device_keyboard.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>app_device_keyboard.c</itemPath>
+      <itemPath>app_led_usb_status.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
