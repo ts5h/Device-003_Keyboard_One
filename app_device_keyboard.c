@@ -25,6 +25,9 @@ please contact mla_licensing@microchip.com
 #include <stdint.h>
 #include <string.h>
 
+#include <stdlib.h>
+#include <time.h>
+
 #include "system.h"
 #include "usb.h"
 #include "usb_device_hid.h"
@@ -268,6 +271,23 @@ signed int LocalSOFCount;
 static signed int OldSOFCount;
 
 
+// For Key One
+unsigned char chArray[] = {
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+    'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+    'u', 'v', 'w', 'x', 'y', 'z',
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+    'U', 'V', 'W', 'X', 'Y', 'Z',
+    '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', 
+    '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', 
+    '?', '@', '[', '\\', ']', '^', '_', '`', '{', '}',
+    '|', '~', ' '
+};
+
+unsigned int chSize;
+time_t toc;
 
 
 // *****************************************************************************
@@ -283,6 +303,11 @@ void APP_KeyboardInit(void)
     
     keyboard.key = 4;
     keyboard.waitingForRelease = false;
+    
+    // For Key One
+    chSize = sizeof(chArray) / sizeof(char);
+    time(&toc);
+    srand((int)toc);
 
     //Set the default idle rate to 500ms (until the host sends a SET_IDLE request to change it to a new value)
     keyboardIdleRate = 500;

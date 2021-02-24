@@ -74,6 +74,7 @@ void APP_LEDUpdateUSBStatus(void)
 //                ledCount = 0;
 //            }
             
+            // No blink
             LED_On(LED_USB_DEVICE_STATE);
             ledCount = 0;
             break;
