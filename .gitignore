@@ -1,3 +1,4 @@
+usb_config.h
 *.bak
 
 debug/

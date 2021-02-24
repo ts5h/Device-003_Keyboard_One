@@ -61,18 +61,21 @@ void APP_LEDUpdateUSBStatus(void)
         case CONFIGURED_STATE:
             /* We are configured.  Blink fast.
              * On for 75ms, off for 75ms, then reset/repeat. */
-            if(ledCount == 1)
-            {
-                LED_On(LED_USB_DEVICE_STATE);
-            }
-            else if(ledCount == 75)
-            {
-                LED_Off(LED_USB_DEVICE_STATE);
-            }
-            else if(ledCount > 150)
-            {
-                ledCount = 0;
-            }
+//            if(ledCount == 1)
+//            {
+//                LED_On(LED_USB_DEVICE_STATE);
+//            }
+//            else if(ledCount == 75)
+//            {
+//                LED_Off(LED_USB_DEVICE_STATE);
+//            }
+//            else if(ledCount > 150)
+//            {
+//                ledCount = 0;
+//            }
+            
+            LED_On(LED_USB_DEVICE_STATE);
+            ledCount = 0;
             break;
 
         default:
