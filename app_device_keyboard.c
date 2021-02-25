@@ -271,19 +271,21 @@ signed int LocalSOFCount;
 static signed int OldSOFCount;
 
 
+// -----------------------------------------------------------------------------
 // For Key One
+// -----------------------------------------------------------------------------
+
+// HID Usage Tables
+// https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf - p.53-59
 unsigned char chArray[] = {
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-    'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-    'u', 'v', 'w', 'x', 'y', 'z',
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-    'U', 'V', 'W', 'X', 'Y', 'Z',
-    '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', 
-    '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', 
-    '?', '@', '[', '\\', ']', '^', '_', '`', '{', '}',
-    '|', '~', ' '
+     4,  5,  6,  7,  8,  9, 10, 11, 12, 13,
+    14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+    24, 25, 26, 27, 28, 29, 
+    30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+    40, 44, // Return, Spacebar
+    45, 46, 47, 48, 49, 50, 51, 52, 54, 55,
+    56
+    // 42 Delete (Backspace)
 };
 
 unsigned int chSize;
@@ -301,7 +303,7 @@ void APP_KeyboardInit(void)
     // transmission
     keyboard.lastINTransmission = 0;
     
-    keyboard.key = 4;
+    keyboard.key = 4; // a
     keyboard.waitingForRelease = false;
     
     // For Key One
@@ -398,14 +400,28 @@ void APP_KeyboardTasks(void)
                 keyboard.waitingForRelease = true;
 
                 /* Set the only important data, the key press data. */
-                inputReport.keys[0] = keyboard.key++;
+                // inputReport.keys[0] = keyboard.key++;
 
                 //In this simulated keyboard, if the last key pressed exceeds the a-z + 0-9,
                 //then wrap back around so we send 'a' again.
+                /*
                 if(keyboard.key == 40)
                 {
                     keyboard.key = 4;
                 }
+                 */
+
+
+                keyboard.key = chArray[rand() % chSize];
+                
+                // Shift (Left Shift)
+                if (rand() % 2 && !(keyboard.key >= 40 && keyboard.key <= 44)) {
+                    inputReport.modifiers.bits.leftShift = 1;
+                } else {
+                    inputReport.modifiers.bits.leftShift = 0;
+                }
+                
+                inputReport.keys[0] = keyboard.key;
             }
         }
         else
