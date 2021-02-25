@@ -291,7 +291,6 @@ unsigned char chArray[] = {
 };
 
 unsigned int chSize;
-time_t toc;
 
 
 // *****************************************************************************
@@ -312,8 +311,8 @@ void APP_KeyboardInit(void)
     repeatCnt = 0;
     chSize = sizeof(chArray) / sizeof(char);
     
-    time(&toc);
-    srand((int)toc);
+    // TODO: Make random seed
+    srand(time(NULL));
 
     //Set the default idle rate to 500ms (until the host sends a SET_IDLE request to change it to a new value)
     keyboardIdleRate = 500;
