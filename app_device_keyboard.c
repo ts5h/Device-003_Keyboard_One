@@ -275,6 +275,8 @@ static signed int OldSOFCount;
 // For Key One
 // -----------------------------------------------------------------------------
 
+unsigned int repeatCnt;
+
 // HID Usage Tables
 // https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf - p.53-59
 unsigned char chArray[] = {
@@ -307,7 +309,9 @@ void APP_KeyboardInit(void)
     keyboard.waitingForRelease = false;
     
     // For Key One
+    repeatCnt = 0;
     chSize = sizeof(chArray) / sizeof(char);
+    
     time(&toc);
     srand((int)toc);
 
@@ -411,7 +415,6 @@ void APP_KeyboardTasks(void)
                 }
                  */
 
-
                 keyboard.key = chArray[rand() % chSize];
                 
                 // Shift (Left Shift)
@@ -423,9 +426,18 @@ void APP_KeyboardTasks(void)
                 
                 inputReport.keys[0] = keyboard.key;
             }
+            else
+            {
+                // Set Key Repeat
+                repeatCnt++;
+                if (repeatCnt == 10000 || (repeatCnt > 10000 && repeatCnt % 500 == 0)) {
+                    keyboard.waitingForRelease = false;
+                }
+            }
         }
         else
         {
+            repeatCnt = 0;
             keyboard.waitingForRelease = false;
         }
 
