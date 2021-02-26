@@ -298,6 +298,20 @@ unsigned int chSize;
 // Section: Macros or Functions
 // *****************************************************************************
 // *****************************************************************************
+
+// Simple Random Seed by using AN3 voltage
+unsigned int randomSeed(void)
+{
+    unsigned int seed;
+    while(1) {
+        GO = 1;
+        while(GO);
+        seed = (ADRESH << 8) | ADRESL;
+        if (seed > 0) break;
+    }
+    return seed;
+}
+
 void APP_KeyboardInit(void)
 {
     //initialize the variable holding the handle for the last
@@ -310,9 +324,7 @@ void APP_KeyboardInit(void)
     // For Key One
     repeatCnt = 0;
     chSize = sizeof(chArray) / sizeof(char);
-    
-    // TODO: Make random seed
-    srand(time(NULL));
+    srand(randomSeed());
 
     //Set the default idle rate to 500ms (until the host sends a SET_IDLE request to change it to a new value)
     keyboardIdleRate = 500;

@@ -38,6 +38,14 @@ please contact mla_licensing@microchip.com
 
 int main(void)
 {
+    // ADC
+    // http://machoto2.g2.xrea.com/page/P16F1459/P16_A06.htm
+    ANSA4 = 0;  // Set AN3 to analog input
+    ADCON2 = 0b00000000;
+    ADCON1 = 0b11000000; // Right padding, ADC clock FOSC/4
+    ADCON0 = 0b00001101; // AN3 (RA4), ADC ON
+    
+    
     SYSTEM_Initialize( SYSTEM_STATE_USB_START );
 
     USBDeviceInit();
